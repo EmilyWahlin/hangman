@@ -14,6 +14,11 @@ function App() {
 
 	const incorrectLetters = guessedLetters.filter(letter => ! wordToGuess.includes(letter))
 
+	const isLoser = incorrectLetters.length >= 6
+	const isWinner = wordToGuess
+	.split("")
+	.every(letter => guessedLetters.includes(letter))
+
 
 	const addGuessedLetter = useCallback((letter:string)=>{
 		if (guessedLetters.includes(letter)) return
@@ -60,7 +65,7 @@ function App() {
 		<HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
 		<div style={{alignSelf: "stretch"}}>
 		<Keyboard
-			activeLetter= {guessedLetters.filter(letter =>
+			activeLetters= {guessedLetters.filter(letter =>
 			wordToGuess.includes(letter)
 		)}
 		inactiveLetters={incorrectLetters}
